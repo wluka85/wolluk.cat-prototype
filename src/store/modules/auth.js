@@ -24,11 +24,14 @@ const getters = {
   }
 }
 const actions = {
-  userSignUp ({commit}, payload) {
+  userSignUp ({commit, rootState}, payload) {
     // Add user to /users
-    commit('setUser', { email: payload.email })
+    if(!rootState.users.userList.filter(user => user.email === payload.email).length > 0) {
+      commit('users/addUser', payload, { root: true })
+      commit('setUser', { email: payload.email })
+      router.push('/home')
+    }
     // rootState.// verify from /users/
-    router.push('/home')
     // commit('setLoading', true)
     // rootState.// verify from /users/
     // firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
