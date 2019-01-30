@@ -2,9 +2,7 @@ const state = {
   userList: []
 }
 const getters = {
-  userExists: (userObject => {
-    return state.userList.filter(user => user.email === userObject.email).length > 0
-  })
+
 }
 const actions = {
 
