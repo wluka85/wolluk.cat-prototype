@@ -30,6 +30,8 @@ const actions = {
       commit('users/addUser', payload, { root: true })
       commit('setUser', { email: payload.email })
       router.push('/home')
+    } else {
+      commit('setError', 'An account with this email already exists!')
     }
     // rootState.// verify from /users/
     // commit('setLoading', true)
