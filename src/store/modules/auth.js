@@ -26,7 +26,7 @@ const getters = {
 const actions = {
   userSignUp ({commit, rootState}, payload) {
     // Add user to /users
-    if(!rootState.users.userList.filter(user => user.email === payload.email).length > 0) {
+    if (!rootState.users.userList.filter(user => user.email === payload.email).length > 0) {
       commit('users/addUser', payload, { root: true })
       commit('setUser', { email: payload.email })
       router.push('/home')
@@ -47,10 +47,19 @@ const actions = {
     //   commit('setLoading', false)
     // })
   },
-  userSignIn ({commit}, payload) {
+  userSignIn ({commit, state, rootState}, payload) {
     // commit('setLoading', true)
-    commit('setUser', { email: payload.email })
-    router.push('/home')
+    let userList = rootState.users.userList
+    userList.forEach(user => {
+      if (user.email === payload.email && user.password === payload.password) {
+        commit('setUser', { email: payload.email })
+        router.push('/home')
+      }
+    })
+
+    if (!state.user) {
+      commit('setError', 'Wrong email or password!')
+    }
     // firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
     // .then(firebaseUser => {
     //   commit('setUser', {email: firebaseUser.user.email})
