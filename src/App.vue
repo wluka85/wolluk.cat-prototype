@@ -16,7 +16,7 @@
           v-btn(flat slot='activator')
             v-icon settings
           v-list(light)
-            v-list-tile(@click='userSignOut') 
+            v-list-tile(@click='myAccount') 
               v-list-tile-action
                 v-icon(left) account_circle
               v-list-tile-title My account
@@ -67,6 +67,9 @@
     methods: {
       userSignOut () {
         this.$store.dispatch('auth/userSignOut')
+      },
+      myAccount () {
+        this.$store.dispatch('auth/myAccount')
       }
     }
   }
