@@ -79,6 +79,9 @@ const actions = {
     // firebase.auth().signOut()
     commit('setUser', null)
     router.push('/')
+  },
+  myAccount ({commit}) {
+    router.push('myAccount')
   }
 }
 export default {
