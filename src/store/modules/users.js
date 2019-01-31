@@ -1,3 +1,5 @@
+import router from '@/router'
+
 const state = {
   userList: [
     {
@@ -24,13 +26,16 @@ const state = {
 }
 const getters = {
   getCurrentUserName (state, getters, rootState) {
-    console.log(rootState)
     let currentUserEmail = rootState.auth.user.email
     return state.userList.filter(user => user.email === currentUserEmail)[0].displayName
   }
 }
 const actions = {
-
+  userChangeName ({commit, state, rootState}, payload) {
+    let email = rootState.auth.user.email
+    commit('setUserName', {userName: payload, userEmail: email})
+    router.push('/home')
+  }
 }
 const mutations = {
   addUser (state, userObject) {
@@ -40,6 +45,13 @@ const mutations = {
       email: userObject.email,
       password: userObject.password,
       roles: {}
+    })
+  },
+  setUserName (state, payload) {
+    state.userList.forEach(user => {
+      if (user.email === payload.userEmail) {
+        user.displayName = payload.userName
+      }
     })
   }
 }
