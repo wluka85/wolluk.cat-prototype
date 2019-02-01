@@ -56,7 +56,6 @@ const actions = {
         router.push('/home')
       }
     })
-
     if (!state.user) {
       commit('setError', 'Wrong email or password!')
     }
@@ -82,6 +81,9 @@ const actions = {
   },
   myAccount ({commit}) {
     router.push('myAccount')
+  },
+  passwordEdit ({commit}) {
+    router.push('passwordEdit')
   }
 }
 export default {
