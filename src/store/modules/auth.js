@@ -1,4 +1,5 @@
 import router from '@/router'
+import md5 from 'js-md5'
 
 const state = {
   user: null,
@@ -21,6 +22,9 @@ const mutations = {
 const getters = {
   isAuthenticated (state) {
     return state.user !== null && state.user !== undefined
+  },
+  getAvatarLink (state) {
+    return 'https://www.gravatar.com/avatar/' + md5(state.user.email)
   }
 }
 const actions = {
