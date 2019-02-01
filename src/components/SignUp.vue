@@ -45,6 +45,7 @@ export default {
       if (this.comparePasswords !== true) {
         return
       }
+      this.$store.commit('auth/setError', null)
       this.$store.dispatch('auth/userSignUp', { email: this.email, password: this.password })
     }
   },

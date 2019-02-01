@@ -27,6 +27,7 @@ export default {
   },
   methods: {
     userSignIn () {
+      this.$store.commit('auth/setError', null)
       this.$store.dispatch('auth/userSignIn', { email: this.email, password: this.password })
     }
   },
