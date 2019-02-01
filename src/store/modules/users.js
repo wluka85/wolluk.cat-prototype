@@ -41,8 +41,12 @@ const actions = {
     let currentUser = state.userList.find(user => user.email === currentUserEmail)
     let oldPassword = payload.oldPassword
     let newPassword = payload.newPassword
-    oldPassword === currentUser.password ? currentUser.password = newPassword : commit('auth/setError', 'Wrong old password!', { root: true })
-    router.push('/home')
+    if (oldPassword === currentUser.password) {
+      currentUser.password = newPassword
+      router.push('/home')
+    } else {
+      commit('auth/setError', 'Wrong old password!', { root: true })
+    }
   }
 }
 const mutations = {
