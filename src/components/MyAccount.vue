@@ -5,7 +5,7 @@
         h1 My Account
       v-flex.text-xs-center(xs12='', sm10='', offset-sm1='', md2='', offset-md3='' mt-5='')
         //- v-avatar(tile=true, color="grey lighten-4")
-        img(src="../assets/avatar.png", width='120px', alt="avatar")
+        img(v-bind:src="userImage()", width='120px', alt="avatar")
       v-flex(xs12='', sm10='', offset-sm1='', md3='', mt-5='')
         form( @submit.prevent='userChangeName')
             v-layout(column='')
@@ -26,6 +26,9 @@ export default {
   methods: {
     userChangeName () {
       this.$store.dispatch('users/userChangeName', this.$refs.name.value)
+    },
+    userImage () {
+      return this.$store.getters['auth/getAvatarLink']
     }
   }
 }

@@ -18,6 +18,7 @@
           v-list(light)
             v-list-tile
               v-list-tile-action
+                img(v-bind:src="userImage()",width='30px', alt="avatar")
               v-list-tile-title Signed in as {{ userName }}
             v-list-tile(@click='myAccount') 
               v-list-tile-action
@@ -82,6 +83,9 @@
       },
       passwordEdit () {
         this.$store.dispatch('auth/passwordEdit')
+      },
+      userImage () {
+        return this.$store.getters['auth/getAvatarLink']
       }
     }
   }
