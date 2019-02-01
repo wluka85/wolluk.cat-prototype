@@ -27,13 +27,21 @@ const state = {
 const getters = {
   getCurrentUserName (state, getters, rootState) {
     let currentUserEmail = rootState.auth.user.email
-    return state.userList.filter(user => user.email === currentUserEmail)[0].displayName
+    return state.userList.find(user => user.email === currentUserEmail).displayName
   }
 }
 const actions = {
   userChangeName ({commit, state, rootState}, payload) {
     let email = rootState.auth.user.email
     commit('setUserName', {userName: payload, userEmail: email})
+    router.push('/home')
+  },
+  userChangePassword ({commit, state, rootState}, payload) {
+    let currentUserEmail = rootState.auth.user.email
+    let currentUser = state.userList.find(user => user.email === currentUserEmail)
+    let oldPassword = payload.oldPassword
+    let newPassword = payload.newPassword
+    oldPassword === currentUser.password ? currentUser.password = newPassword : commit('auth/setError', 'Wrong old password!', { root: true })
     router.push('/home')
   }
 }
