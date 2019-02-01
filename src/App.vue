@@ -20,6 +20,9 @@
               v-list-tile-action
                 v-icon(left) account_circle
               v-list-tile-title My account
+            v-list-tile(@click='passwordEdit') 
+              v-list-tile-action
+              v-list-tile-title Change password
             v-divider
             v-list-tile(@click='userSignOut') 
               v-list-tile-action
@@ -70,6 +73,9 @@
       },
       myAccount () {
         this.$store.dispatch('auth/myAccount')
+      },
+      passwordEdit () {
+        this.$store.dispatch('auth/passwordEdit')
       }
     }
   }

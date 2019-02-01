@@ -9,6 +9,7 @@ const routerOptions = [
   { path: '/signup', component: 'SignUp' },
   { path: '/home', component: 'Home', meta: { requiresAuth: true } },
   { path: '/myaccount', component: 'MyAccount', meta: { requiresAuth: true } },
+  { path: '/passwordEdit', component: 'PasswordEdit', meta: { requiresAuth: true } },
   {
     path: '/objects',
     name: 'listObjects',
