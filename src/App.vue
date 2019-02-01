@@ -16,6 +16,9 @@
           v-btn(flat slot='activator')
             v-icon settings
           v-list(light)
+            v-list-tile
+              v-list-tile-action
+              v-list-tile-title Signed in as {{ userName }}
             v-list-tile(@click='myAccount') 
               v-list-tile-action
                 v-icon(left) account_circle
@@ -44,6 +47,9 @@
       // appTitle () {
       //   return this.$store.state.appTitle
       // },
+      userName () {
+        return this.$store.getters['users/getCurrentUserName']
+      },
       isAuthenticated () {
         return this.$store.getters['auth/isAuthenticated']
       },
