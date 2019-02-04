@@ -14,6 +14,20 @@
               v-text-field#newPassword(name='newPassword', ref='newPassword', label='Password' required='', type='password', v-model='newPassword')
             v-flex
               v-text-field#confirmPassword(name='confirmPassword', ref='confirmPassword', label='Confirm password' type='password', required='', :rules='[comparePasswords]', v-model='confirmPassword')
+            v-list-tile
+              v-list-tile-title Roles:
+            v-list-tile
+              v-list-tile-action
+                v-checkbox(label='Admin', v-model="admin")
+            v-list-tile
+              v-list-tile-action
+                v-checkbox(label='Editor', :disabled='checkboxActive()', v-model="editor")
+            v-list-tile
+              v-list-tile-action
+                v-checkbox(label='Translator', :disabled='checkboxActive()', v-model="translator")
+            v-list-tile
+              v-list-tile-action
+                v-checkbox(label='Designer', :disabled='checkboxActive()', v-model="designer")
             v-flex.text-xs-center(mt-3='')
               v-btn(to='/home') Cancel
               v-btn(color='primary', type='submit') Save
@@ -29,7 +43,11 @@ export default {
       displayName: '',
       newPassword: '',
       confirmPassword: '',
-      alert: false
+      alert: false,
+      admin: false,
+      editor: false,
+      translator: false,
+      designer: false
     }
   },
   computed: {
@@ -44,13 +62,23 @@ export default {
     }
   },
   methods: {
+    checkboxActive () {
+      if (this.editor && this.translator && this.designer) {
+        this.admin = true
+      }
+      return this.admin
+    },
     addEditUser () {
-      console.log(this.displayName, this.email, this.newPassword)
       if (this.comparePasswords !== true) {
         return
+      } else if (!this.admin && !this.translator && !this.designer && !this.editor) {
+        this.$store.commit('auth/setError', 'You should choose role')
+        return
       }
+      let roles
+      this.admin ? roles = { admin: this.admin } : roles = {editor: this.editor, designer: this.designer, translator: this.translator}
       this.$store.commit('auth/setError', null)
-      this.$store.dispatch('users/userAdd', { displayName: this.displayName, email: this.email, password: this.password })
+      this.$store.dispatch('users/userAdd', { displayName: this.displayName, email: this.email, password: this.password, roles })
     }
   },
   watch: {
@@ -62,6 +90,13 @@ export default {
     alert (value) {
       if (!value) {
         this.$store.commit('auth/setError', null)
+      }
+    },
+    admin () {
+      if (this.admin) {
+        this.designer = this.editor = this.translator = true
+      } else {
+        this.designer = this.editor = this.translator = false
       }
     }
   }

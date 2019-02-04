@@ -75,7 +75,7 @@ const mutations = {
       displayName: userObject.displayName,
       email: userObject.email,
       password: userObject.password,
-      roles: {}
+      roles: userObject.roles
     })
   },
   setUserName (state, payload) {
