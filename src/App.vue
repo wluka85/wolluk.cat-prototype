@@ -12,7 +12,7 @@
         v-btn(flat v-for='item in menuItems' :key='item.title' :to='item.path')
           v-icon(left dark) {{ item.icon }}
           | {{ item.title }}
-        v-menu(v-if="isAuthenticated" offset-y :nudge-width="200")
+        v-menu(v-if="isAuthenticated" offset-y :nudge-right="200")
           v-btn(flat slot='activator')
             v-icon settings
           v-list(light)
@@ -27,6 +27,9 @@
             v-list-tile(@click='passwordEdit') 
               v-list-tile-action
               v-list-tile-title Change password
+            v-list-tile(@click='systemUsers') 
+              v-list-tile-action
+              v-list-tile-title System users
             v-divider
             v-list-tile(@click='userSignOut') 
               v-list-tile-action
@@ -86,6 +89,9 @@
       },
       userImage () {
         return this.$store.getters['auth/getAvatarLink']
+      },
+      systemUsers () {
+        this.$store.dispatch('auth/systemUsers')
       }
     }
   }
