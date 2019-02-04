@@ -55,7 +55,6 @@ const actions = {
   userAdd ({commit, state, rootState}, payload) {
     if (!rootState.users.userList.filter(user => user.email === payload.email).length > 0) {
       commit('addUser', payload)
-      commit('auth/setUser', { email: payload.email }, { root: true })
       router.push('/home')
     } else {
       commit('auth/setError', 'An account with this email already exists!', { root: true })
