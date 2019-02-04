@@ -25,6 +25,10 @@ const getters = {
   },
   getAvatarLink (state) {
     return 'https://www.gravatar.com/avatar/' + md5(state.user.email)
+  },
+  getCurrentUser (state) {
+    console.log('user: ', state.user)
+    return state.user.email
   }
 }
 const actions = {
@@ -88,6 +92,9 @@ const actions = {
   },
   passwordEdit ({commit}) {
     router.push('passwordEdit')
+  },
+  systemUsers ({commit}) {
+    router.push('systemUsers')
   }
 }
 export default {
