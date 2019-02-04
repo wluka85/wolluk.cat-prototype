@@ -22,7 +22,7 @@
                           v-list-tile-title.text-xs-center {{ item.email }}
                         v-list-tile
                           v-list-tile-sub-title.text-xs-center roles
-                        v-btn(flat color="green") DELETE
+                        v-btn(flat color="green", @click='userDelete(item.email)') DELETE
                         v-btn(flat color="green") EDIT
 </template>
 
@@ -37,14 +37,15 @@ export default {
   },
   computed: {
     user () {
-      console.log(this.$store.getters['auth/getCurrentUser'])
       return this.$store.getters['auth/getCurrentUser']
     }
   },
   methods: {
     userAvatar (email) {
-      console.log('userek: ', this.user)
       return 'https://www.gravatar.com/avatar/' + md5(email)
+    },
+    userDelete (email) {
+      this.$store.dispatch('users/userDelete', {email: email})
     }
   }
 }

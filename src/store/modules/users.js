@@ -60,6 +60,9 @@ const actions = {
     } else {
       commit('auth/setError', 'An account with this email already exists!', { root: true })
     }
+  },
+  userDelete ({commit}, payload) {
+    commit('deleteUser', payload)
   }
 }
 const mutations = {
@@ -84,7 +87,7 @@ const mutations = {
     })
   },
   deleteUser (state, payload) {
-    state.userList.splice(userList.findIndex(user => user.email === payload.email),1);
+    state.userList.splice(state.userList.findIndex(user => user.email === payload.email), 1)
   }
 }
 export default {
