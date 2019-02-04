@@ -4,7 +4,7 @@
       v-flex.text-xs-center(xs12='', mt-5='')
         h1 Add User
       v-flex(xs12='', sm10='', offset-sm1='', md4='', offset-md4, mt-5='')
-        form( @submit.prevent='addEditUser')
+        form( @submit.prevent='addUser')
           v-layout(column='')
             v-flex
               v-text-field#email(name='email', ref='email', label='Email' required='', type='email', v-model='email')
@@ -68,7 +68,7 @@ export default {
       }
       return this.admin
     },
-    addEditUser () {
+    addUser () {
       if (this.comparePasswords !== true) {
         return
       } else if (!this.admin && !this.translator && !this.designer && !this.editor) {
@@ -77,7 +77,6 @@ export default {
       }
       let roles
       this.admin ? roles = { admin: this.admin } : roles = {editor: this.editor, designer: this.designer, translator: this.translator}
-      console.log(roles)
       this.$store.commit('auth/setError', null)
       this.$store.dispatch('users/userAdd', { displayName: this.displayName, email: this.email, password: this.password, roles: roles })
     }
