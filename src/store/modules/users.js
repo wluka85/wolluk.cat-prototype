@@ -28,6 +28,9 @@ const getters = {
   getCurrentUserName (state, getters, rootState) {
     let currentUserEmail = rootState.auth.user.email
     return state.userList.find(user => user.email === currentUserEmail).displayName
+  },
+  getAllUsers (state, getters, rootState) {
+    return state.userList
   }
 }
 const actions = {
