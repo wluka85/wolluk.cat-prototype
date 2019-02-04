@@ -8,7 +8,7 @@
         v-container(fluid='', grid-list-md='')
           v-flex(mt-2='')
             v-layout(row wrap)
-              v-flex(v-for='(item, index) in userList', :key='index', sm6='', md4='', lg3='' mt-3='')
+              v-flex(v-for='(item, index) in userListSearched', :key='index', sm6='', md4='', lg3='' mt-3='')
                 v-card
                   v-flex(pa-2, pt-4)
                     v-avatar(tile=false size='120px')
@@ -30,10 +30,8 @@
 import md5 from 'js-md5'
 
 export default {
-  data () {
-    return {
-      userList: this.$store.getters['users/getAllUsers']
-    }
+  created () {
+    return this.$store.dispatch('users/usersSearch', { searchCriteria: '' })
   },
   methods: {
     userAvatar (email) {
@@ -48,9 +46,16 @@ export default {
     generateRoles (roles) {
       let rolesStr = ''
       for (const key in roles) {
-        rolesStr += key.toUpperCase() + ' '
+        if (roles[key]) {
+          rolesStr += key.toUpperCase() + ' '
+        }
       }
       return rolesStr
+    }
+  },
+  computed: {
+    userListSearched () {
+      return this.$store.getters['users/getUsers']
     }
   }
 }
