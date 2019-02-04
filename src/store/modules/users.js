@@ -23,15 +23,16 @@ const state = {
         'designer': false
       }
     }
-  ]
+  ],
+  searchResultList: []
 }
 const getters = {
   getCurrentUserName (state, getters, rootState) {
     let currentUserEmail = rootState.auth.user.email
     return state.userList.find(user => user.email === currentUserEmail).displayName
   },
-  getAllUsers (state, getters, rootState) {
-    return state.userList
+  getUsers (state, getters, rootState) {
+    return state.searchResultList
   }
 }
 const actions = {
@@ -55,13 +56,38 @@ const actions = {
   userAdd ({commit, state, rootState}, payload) {
     if (!rootState.users.userList.filter(user => user.email === payload.email).length > 0) {
       commit('addUser', payload)
-      router.push('/home')
+      commit('resetSearch')
+      router.push('/systemUsers')
     } else {
       commit('auth/setError', 'An account with this email already exists!', { root: true })
     }
   },
   userDelete ({commit}, payload) {
     commit('deleteUser', payload)
+    commit('resetSearch')
+  },
+  usersSearch ({commit, state}, payload) {
+    let resultListByText = state.userList.filter(user => user.email.match(payload.searchCriteria) || user.displayName.match(payload.searchCriteria))
+    let filteredList = []
+    if (payload.admin) {
+      filteredList = filteredList.concat(resultListByText.filter(user => user.roles.admin))
+    }
+    if (payload.designer) {
+      filteredList = filteredList.concat(resultListByText.filter(user => user.roles.designer))
+    }
+    if (payload.editor) {
+      filteredList = filteredList.concat(resultListByText.filter(user => user.roles.editor))
+    }
+    if (payload.translator) {
+      filteredList = filteredList.concat(resultListByText.filter(user => user.roles.translator))
+    }
+    if (!payload.admin && !payload.designer && !payload.editor && !payload.translator) {
+      filteredList = resultListByText
+    }
+    filteredList = filteredList.filter((elem, index, self) => {
+      return index === self.indexOf(elem)
+    })
+    commit('setSearchResultList', filteredList)
   }
 }
 const mutations = {
@@ -87,6 +113,12 @@ const mutations = {
   },
   deleteUser (state, payload) {
     state.userList.splice(state.userList.findIndex(user => user.email === payload.email), 1)
+  },
+  setSearchResultList (state, searchResultList) {
+    state.searchResultList = searchResultList
+  },
+  resetSearch (state) {
+    state.searchResultList = state.userList
   }
 }
 export default {
