@@ -1,6 +1,6 @@
 <template lang="pug">
   v-container(fluid='')
-    v-btn(fab bottom right color="pink" dark fixed :to="{name:'createObject'}")
+    v-btn(fab bottom right color="pink" dark fixed :to="{name:'addUser'}")
       v-icon add
     v-layout(row='', wrap='')
       v-flex.text-xs-center(xs12='', mt-3='')
