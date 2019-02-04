@@ -18,6 +18,13 @@ const routerOptions = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/systemUsers',
+    name: 'systemUsers',
+    components:
+      { default: 'SystemUsers', sidebar: 'SystemUsersSidebar' },
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/objects/new',
     name: 'createObject',
     components:
