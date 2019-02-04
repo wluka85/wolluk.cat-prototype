@@ -77,8 +77,9 @@ export default {
       }
       let roles
       this.admin ? roles = { admin: this.admin } : roles = {editor: this.editor, designer: this.designer, translator: this.translator}
+      console.log(roles)
       this.$store.commit('auth/setError', null)
-      this.$store.dispatch('users/userAdd', { displayName: this.displayName, email: this.email, password: this.password, roles })
+      this.$store.dispatch('users/userAdd', { displayName: this.displayName, email: this.email, password: this.password, roles: roles })
     }
   },
   watch: {
