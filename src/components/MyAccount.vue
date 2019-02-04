@@ -3,9 +3,9 @@
     v-layout(row='', wrap='')
       v-flex.text-xs-center(xs12='', mt-5='')
         h1 My Account
-      v-flex.text-xs-center(xs12='', sm10='', offset-sm1='', md2='', offset-md3='' mt-5='')
-        //- v-avatar(tile=true, color="grey lighten-4")
-        img(v-bind:src="userImage()", width='120px', alt="avatar")
+      v-flex.text-xs-center(xs12='', sm10='', offset-sm1='', md1='', offset-md4='' mt-5='')
+        v-avatar(tile=false size="100px")
+          img(v-bind:src="userImage()", alt="avatar")
       v-flex(xs12='', sm10='', offset-sm1='', md3='', mt-5='')
         form( @submit.prevent='userChangeName')
             v-layout(column='')
