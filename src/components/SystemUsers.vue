@@ -21,7 +21,7 @@
                         v-list-tile
                           v-list-tile-title.text-xs-center {{ item.email }}
                         v-list-tile
-                          v-list-tile-sub-title.text-xs-center roles
+                          v-list-tile-sub-title.text-xs-center {{ generateRoles(item.roles) }}
                         v-btn(v-if="isCurrentUser(item.email)", flat color="green", @click='userDelete(item.email)') DELETE
                         v-btn(flat color="green") EDIT
 </template>
@@ -44,6 +44,13 @@ export default {
     },
     isCurrentUser (email) {
       return this.$store.getters['auth/getCurrentUser'] !== email
+    },
+    generateRoles (roles) {
+      let rolesStr = ''
+      for (const key in roles) {
+        rolesStr += key.toUpperCase() + ' '
+      }
+      return rolesStr
     }
   }
 }
