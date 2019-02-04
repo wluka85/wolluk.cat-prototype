@@ -1,4 +1,5 @@
 import router from '@/router'
+import uuidv1 from 'uuid/v1'
 
 const state = {
   userList: [
@@ -50,13 +51,26 @@ const actions = {
     } else {
       commit('auth/setError', 'Wrong old password!', { root: true })
     }
+  },
+  userAdd ({commit, state, rootState}, payload) {
+    if (!rootState.users.userList.filter(user => user.email === payload.email).length > 0) {
+      commit('addUser', payload)
+      commit('auth/setUser', { email: payload.email }, { root: true })
+      router.push('/home')
+    } else {
+      commit('auth/setError', 'An account with this email already exists!', { root: true })
+    }
   }
 }
 const mutations = {
   addUser (state, userObject) {
+    let id = uuidv1()
+    if (!userObject.displayName) {
+      userObject.displayName = ''
+    }
     state.userList.push({
-      id: '',
-      displayName: '',
+      id: id,
+      displayName: userObject.displayName,
       email: userObject.email,
       password: userObject.password,
       roles: {}
@@ -68,6 +82,9 @@ const mutations = {
         user.displayName = payload.userName
       }
     })
+  },
+  deleteUser (state, payload) {
+    state.userList.splice(userList.findIndex(user => user.email === payload.email),1);
   }
 }
 export default {
