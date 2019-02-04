@@ -10,6 +10,7 @@ import colors from 'vuetify/es5/util/colors'
 // A-la'carte components goes here:
 import {
   Vuetify,
+  VAvatar,
   VApp,
   VNavigationDrawer,
   VFooter,
@@ -27,6 +28,7 @@ import {
   VAlert,
   VMenu,
   VDivider,
+  VCard,
   transitions
 } from 'vuetify'
 
@@ -35,6 +37,7 @@ import '../node_modules/vuetify/src/stylus/app.styl'
 Vue.use(Vuetify, {
   components: {
     VApp,
+    VAvatar,
     VNavigationDrawer,
     VFooter,
     VList,
@@ -51,6 +54,7 @@ Vue.use(Vuetify, {
     VAlert,
     VMenu,
     VDivider,
+    VCard,
     transitions
   },
   theme: {
