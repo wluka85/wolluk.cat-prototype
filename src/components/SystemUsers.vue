@@ -16,24 +16,22 @@
       v-flex.text-xs-center(xs12='', mt-3='')
         h1 System users
         v-container(fluid='', grid-list-md='')
-          v-flex(mt-2='')
-            v-layout(row wrap)
-              v-flex(v-for='(item, index) in userListSearched', :key='index', sm6='', md4='', lg3='' mt-3='')
-                v-card
-                  v-flex(pa-2, pt-4)
-                    v-avatar(tile=false size='120px')
-                      img(v-bind:src="userAvatar(item.email)", alt="avatar")
-                    v-flex(mt-1='')
-                      v-list(light)
-                        v-list-tile
-                          v-list-tile-title.text-xs-center 
-                            h2 {{ item.displayName }}
-                        v-list-tile
-                          v-list-tile-title.text-xs-center {{ item.email }}
-                        v-list-tile
-                          v-list-tile-sub-title.text-xs-center {{ generateRoles(item.roles) }}
-                        v-btn(v-if="isCurrentUser(item.email)", flat color="green", @click='userToDelete(item.email)') DELETE
-                        v-btn(flat color="green", :to="{name:'addUser', params: {isAddComponent: false, name: 'Edit user', user: item}}") EDIT
+          v-layout(row wrap, mt-2)
+            v-flex(v-for='(item, index) in userListSearched', :key='index', sm6='', md4='', lg3='' mt-3='')
+              v-card
+                v-flex(pa-2, pt-4)
+                  v-avatar(tile=false size='120px')
+                    img(v-bind:src="userAvatar(item.email)", alt="avatar")
+                  v-list(light, mt-1='')
+                    v-list-tile
+                      v-list-tile-title.text-xs-center 
+                        h2 {{ item.displayName }}
+                    v-list-tile
+                      v-list-tile-title.text-xs-center {{ item.email }}
+                    v-list-tile
+                      v-list-tile-sub-title.text-xs-center {{ generateRoles(item.roles) }}
+                    v-btn(v-if="isCurrentUser(item.email)", flat color="green", @click='userToDelete(item.email)') DELETE
+                    v-btn(flat color="green", :to="{name:'addUser', params: {isAddComponent: false, name: 'Edit user', user: item}}") EDIT
 </template>
 
 <script>
