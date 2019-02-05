@@ -32,6 +32,13 @@ const routerOptions = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/editUser',
+    name: 'editUser',
+    components:
+      { default: 'UserAddEdit' },
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/objects/new',
     name: 'createObject',
     components:
