@@ -62,12 +62,22 @@ const actions = {
       commit('auth/setError', 'An account with this email already exists!', { root: true })
     }
   },
+  userEdit ({commit, state, rootState}, payload) {
+    if (rootState.users.userList.filter(user => user.email === payload.email && user.id !== payload.id).length > 0) {
+      commit('auth/setError', 'An account with this email already exists!', { root: true })
+      router.push('/editUser')
+    } else {
+      commit('editUser', payload)
+      commit('resetSearch')
+      router.push('/systemUsers')
+    }
+  },
   userDelete ({commit}, payload) {
     commit('deleteUser', payload)
     commit('resetSearch')
   },
   usersSearch ({commit, state}, payload) {
-    let resultListByText = state.userList.filter(user => user.email.match(payload.searchCriteria) || user.displayName.match(payload.searchCriteria))
+    let resultListByText = state.userList.filter(user => user.email.match(payload.searchCriteria) || user.displayName.toLowerCase().match(payload.searchCriteria))
     let filteredList = []
     if (payload.admin) {
       filteredList = filteredList.concat(resultListByText.filter(user => user.roles.admin))
@@ -103,6 +113,13 @@ const mutations = {
       password: userObject.password,
       roles: userObject.roles
     })
+  },
+  editUser (state, payload) {
+    let userToEdit = state.userList.find(user => user.id === payload.id)
+    userToEdit.displayName = payload.displayName
+    userToEdit.email = payload.email
+    userToEdit.password = payload.password
+    userToEdit.roles = payload.roles
   },
   setUserName (state, payload) {
     state.userList.forEach(user => {
