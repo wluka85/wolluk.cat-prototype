@@ -1,6 +1,6 @@
 <template lang="pug">
   v-container(fluid='')
-    v-btn(fab bottom right color="pink" dark fixed :to="{name:'addUser'}")
+    v-btn(fab bottom right color="pink" dark fixed :to="{name:'addUser', params: {isAddComponent: true, name: 'Add user'}}")
       v-icon add
     v-layout(row='', wrap='')
       v-flex.text-xs-center(xs12='', mt-3='')
@@ -23,7 +23,7 @@
                         v-list-tile
                           v-list-tile-sub-title.text-xs-center {{ generateRoles(item.roles) }}
                         v-btn(v-if="isCurrentUser(item.email)", flat color="green", @click='userDelete(item.email)') DELETE
-                        v-btn(flat color="green") EDIT
+                        v-btn(flat color="green", :to="{name:'addUser', params: {isAddComponent: false, name: 'Edit user', user: item}}") EDIT
 </template>
 
 <script>
