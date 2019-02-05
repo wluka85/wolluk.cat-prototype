@@ -27,7 +27,7 @@
             v-list-tile(@click='passwordEdit') 
               v-list-tile-action
               v-list-tile-title Change password
-            v-list-tile(@click='systemUsers') 
+            v-list-tile(v-if='isAdmin', @click='systemUsers') 
               v-list-tile-action
               v-list-tile-title System users
             v-divider
@@ -56,6 +56,9 @@
       },
       isAuthenticated () {
         return this.$store.getters['auth/isAuthenticated']
+      },
+      isAdmin () {
+        return this.$store.getters['users/getCurrentUserRoles'].admin
       },
       menuItems () {
         if (this.isAuthenticated) {

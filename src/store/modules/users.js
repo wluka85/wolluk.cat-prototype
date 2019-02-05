@@ -31,6 +31,10 @@ const getters = {
     let currentUserEmail = rootState.auth.user.email
     return state.userList.find(user => user.email === currentUserEmail).displayName
   },
+  getCurrentUserRoles (state, getters, rootState) {
+    let currentUserEmail = rootState.auth.user.email
+    return state.userList.find(user => user.email === currentUserEmail).roles
+  },
   getUsers (state, getters, rootState) {
     return state.searchResultList
   }
