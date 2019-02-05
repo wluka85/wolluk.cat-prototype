@@ -102,7 +102,7 @@ export default {
       let roles
       this.admin ? roles = { admin: this.admin } : roles = {editor: this.editor, designer: this.designer, translator: this.translator}
       this.$store.commit('auth/setError', null)
-      this.$store.dispatch(this.dispatchName, { id: this.id, displayName: this.displayName, email: this.email, password: this.password, roles: roles })
+      this.$store.dispatch(this.dispatchName, { id: this.id, displayName: this.displayName, email: this.email, password: this.newPassword, roles: roles })
     }
   },
   watch: {
