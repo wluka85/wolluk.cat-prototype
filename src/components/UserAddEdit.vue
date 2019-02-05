@@ -39,39 +39,21 @@
 <script>
 export default {
   data () {
-    console.log(this.$route)
-    if (this.$route.params.isAddComponent) {
-      return {
-        isAddComponent: this.$route.params.isAddComponent,
-        id: '',
-        componentName: this.$route.params.name,
-        email: '',
-        displayName: '',
-        newPassword: '',
-        confirmPassword: '',
-        alert: false,
-        admin: false,
-        editor: false,
-        translator: false,
-        designer: false,
-        dispatchName: 'users/userAdd'
-      }
-    } else {
-      return {
-        isAddComponent: this.$route.params.isAddComponent,
-        id: this.$route.params.user.id,
-        componentName: this.$route.params.name,
-        email: this.$route.params.user.email,
-        displayName: this.$route.params.user.displayName,
-        newPassword: this.$route.params.user.password,
-        confirmPassword: this.$route.params.user.password,
-        alert: false,
-        admin: this.$route.params.user.roles.admin,
-        editor: this.$route.params.user.roles.editor,
-        translator: this.$route.params.user.roles.translator,
-        designer: this.$route.params.user.roles.designer,
-        dispatchName: 'users/userEdit'
-      }
+    let isAddComponentParameter = this.$route.params.isAddComponent
+    return {
+      isAddComponent: isAddComponentParameter,
+      id: isAddComponentParameter ? '' : this.$route.params.user.id,
+      componentName: this.$route.params.name,
+      email: isAddComponentParameter ? '' : this.$route.params.user.email,
+      displayName: isAddComponentParameter ? '' : this.$route.params.user.displayName,
+      newPassword: isAddComponentParameter ? '' : this.$route.params.user.password,
+      confirmPassword: isAddComponentParameter ? '' : this.$route.params.user.password,
+      alert: false,
+      admin: isAddComponentParameter ? false : this.$route.params.user.roles.admin,
+      editor: isAddComponentParameter ? false : this.$route.params.user.roles.editor,
+      translator: isAddComponentParameter ? false : this.$route.params.user.roles.translator,
+      designer: isAddComponentParameter ? false : this.$route.params.user.roles.designer,
+      dispatchName: isAddComponentParameter ? 'users/userAdd' : 'users/userEdit'
     }
   },
   computed: {
